@@ -25,6 +25,10 @@ export const users = {
         username: "visual_user",
         password: PASSWORD
     },
+    invalid_user:{
+        username: "invalid_user",
+        password: PASSWORD
+    },
 }
 
 export const url = "https://www.saucedemo.com/"

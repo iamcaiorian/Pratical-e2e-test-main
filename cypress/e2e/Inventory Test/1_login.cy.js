@@ -24,7 +24,15 @@ describe('Inventory - Login', () => {
       cy.get('[data-test="login-button"]').should('be.visible');
     });
 
-    it.skip('Should not login with invalid credentials');
+    it('Should not login with invalid credentials', () => {
+      cy.visit(url);
+      
+      cy.get('[data-test="username"]').type(users.invalid_user.username);
+      cy.get('[data-test="password"]').type(users.invalid_user.username);
+      cy.get('[data-test="login-button"]').click();
+
+      cy.get('[data-test="error"]').should('contain', 'Epic sadface: Username and password do not match any user in this service');
+    });
 
     it.skip('Should not allow "locked_out_user" do sign in');
 
