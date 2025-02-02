@@ -33,5 +33,14 @@ describe('Inventory - Products', () => {
     });
   });
 
-  it.skip('Should sort products by price properly (low to high)');
+  it('Should sort products by price properly (low to high)', () => {
+    cy.get('.product_sort_container').select('lohi');
+
+    let previousPrice = 0;
+    cy.get('.inventory_item_price').each(($el) => {
+      const price = parseFloat($el.text().replace('$', ''));
+      expect(price).to.be.at.least(previousPrice);
+      previousPrice = price;
+    });
+  });
 });
