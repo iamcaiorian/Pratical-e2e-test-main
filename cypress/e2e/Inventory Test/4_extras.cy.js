@@ -18,4 +18,16 @@ describe('Inventory - Extras', () => {
       cy.wrap($item).find('img').should('have.attr', 'src');
     });
   });
+
+  it('Should add multiple products to the cart and validate their presence', () => {
+    cy.get('.inventory_item').each(($item, index) => {
+      if (index < 3) {
+        cy.wrap($item).find('button').click();
+      }
+    });
+    cy.get('.shopping_cart_badge').should('contain', '3');
+
+    cy.get('.shopping_cart_link').click();
+    cy.get('.cart_item').should('have.length', 3);
+  });
 });
