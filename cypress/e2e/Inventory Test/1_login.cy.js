@@ -44,5 +44,13 @@ describe('Inventory - Login', () => {
       cy.get('[data-test="error"]').should('contain', 'Epic sadface: Sorry, this user has been locked out.');
     });
 
-    it.skip('Should login with "performance_glitch_user" and wait the products page loads');
+    it('Should login with "performance_glitch_user" and wait the products page loads', () => {
+      cy.visit(url);
+      
+      cy.get('[data-test="username"]').type(users.performance_glitch_user.username);
+      cy.get('[data-test="password"]').type(users.performance_glitch_user.password);
+      cy.get('[data-test="login-button"]').click();
+      
+      cy.contains('Products', { timeout: 10000 }).should('be.visible');
+    });
   })
