@@ -22,7 +22,16 @@ describe('Inventory - Products', () => {
     cy.get('.inventory_item_name').should('contain', 'Sauce Labs Backpack');
   });
 
-  it.skip('Should sort products by price properly (high to low)');
+  it('Should sort products by price properly (high to low)', () => {
+    cy.get('.product_sort_container').select('hilo');
+
+    let previousPrice = Infinity;
+    cy.get('.inventory_item_price').each(($el) => {
+      const price = parseFloat($el.text().replace('$', ''));
+      expect(price).to.be.at.most(previousPrice);
+      previousPrice = price;
+    });
+  });
 
   it.skip('Should sort products by price properly (low to high)');
 });
