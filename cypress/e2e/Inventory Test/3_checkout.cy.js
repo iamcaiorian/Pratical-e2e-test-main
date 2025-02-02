@@ -12,7 +12,7 @@ describe("Inventory - Products", () => {
     cy.get('.inventory_item').first().within(() => {
       cy.get('[data-test="add-to-cart-sauce-labs-backpack"]').click();
     });
-    
+
     cy.get('.shopping_cart_link').click();
 
     cy.get('[data-test="checkout"]').click();
@@ -27,7 +27,19 @@ describe("Inventory - Products", () => {
     cy.get('.complete-header').should('contain', 'Thank you for your order!');
   });
 
-  it.skip("Should select some products, go to cart, and go back to continue shopping");
+  it('Should select some products, go to cart, and go back to continue shopping', () => {
+    cy.get('.inventory_item').first().within(() => {
+      cy.get('[data-test="add-to-cart-sauce-labs-backpack"]').click();
+    });
+
+    cy.get('.shopping_cart_link').click();
+
+    cy.get('[data-test="continue-shopping"]').click();
+    
+    cy.url().should('include', '/inventory.html');
+    cy.get('.shopping_cart_badge').should('contain', '1');
+    cy.contains('Products');
+  });
 
   it.skip("Should not continue checkout with empty delivery information");
 });
