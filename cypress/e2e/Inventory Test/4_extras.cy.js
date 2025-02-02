@@ -30,4 +30,16 @@ describe('Inventory - Extras', () => {
     cy.get('.shopping_cart_link').click();
     cy.get('.cart_item').should('have.length', 3);
   });
+
+  it('Should remove a product from the cart', () => {
+    cy.get('.inventory_item').first().within(() => {
+      cy.get('button').click();
+    });
+    cy.get('.shopping_cart_badge').should('contain', '1');
+    cy.get('.shopping_cart_link').click();
+
+    cy.get('.cart_item').should('have.length', 1);
+    cy.get('[data-test="remove-sauce-labs-backpack"]').click();
+    cy.get('.cart_item').should('have.length', 0);
+  });
 });
