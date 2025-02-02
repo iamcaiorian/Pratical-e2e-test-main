@@ -28,13 +28,21 @@ describe('Inventory - Login', () => {
       cy.visit(url);
       
       cy.get('[data-test="username"]').type(users.invalid_user.username);
-      cy.get('[data-test="password"]').type(users.invalid_user.username);
+      cy.get('[data-test="password"]').type(users.invalid_user.password);
       cy.get('[data-test="login-button"]').click();
 
       cy.get('[data-test="error"]').should('contain', 'Epic sadface: Username and password do not match any user in this service');
     });
 
-    it.skip('Should not allow "locked_out_user" do sign in');
+    it('Should not allow "locked_out_user" do sign in', () => {
+      cy.visit(url);
+      
+      cy.get('[data-test="username"]').type(users.locked_out_user.username);
+      cy.get('[data-test="password"]').type(users.locked_out_user.password);
+      cy.get('[data-test="login-button"]').click();
+
+      cy.get('[data-test="error"]').should('contain', 'Epic sadface: Sorry, this user has been locked out.');
+    });
 
     it.skip('Should login with "performance_glitch_user" and wait the products page loads');
   })
